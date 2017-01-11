@@ -41,7 +41,7 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
 
 7. Align the sequences to a version of the silva database trimmed according to the primers you used for your sequencing.
   * __Does our Silva database need to be pre-trimmed according to our primers? Or is this step unnecessary? We would probably need to include a database prep protocol to accompany this document.__
-  * __There is some mention of the "standard-issue" silva mothur database lacking many archaeal groups due to the lower quality of their sequences in the Silva database. Should this worry us if we're looking into archaea?
+  * __There is some mention of the "standard-issue" silva mothur database lacking many archaeal groups due to the lower quality of their sequences in the Silva database. Should this worry us if we're looking into archaea?__
 
     ```
     align.seqs(fasta=basename.trim.contigs.good.unique.fasta, reference=/path/to/database/silva.nr_v123.pcr.align)
