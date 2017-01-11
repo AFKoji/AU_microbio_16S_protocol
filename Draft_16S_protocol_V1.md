@@ -41,7 +41,7 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
 
 7. Align the sequences to a version of the silva database trimmed according to the primers you used for your sequencing.
   * __Does our Silva database need to be pre-trimmed according to our primers? Or is this step unnecessary? We would probably need to include a database prep protocol to accompany this document.__
-  *__There is some mention of the "standard-issue" silva mothur database lacking many archaeal groups due to the lower quality of their sequences in the Silva database. Should this worry us if we're looking into archaea?
+  * __There is some mention of the "standard-issue" silva mothur database lacking many archaeal groups due to the lower quality of their sequences in the Silva database. Should this worry us if we're looking into archaea?
 
     ```
     align.seqs(fasta=basename.trim.contigs.good.unique.fasta, reference=/path/to/database/silva.nr_v123.pcr.align)
@@ -74,6 +74,7 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
     ```
     screen.seqs(fasta=basename.trim.contigs.good.unique.align, count=basename.trim.contigs.good.count_table, summary=basename.trim.contigs.good.unique.summary, start=6428, end=23440, maxhomop=8)
     ```
+
 11. Now filter the sequences to remove overhangs outside of the aligned region:
   *__Is this the only and best way to remove primers, bits of adapter etc.?__
 
@@ -88,14 +89,14 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
     ```
 
 13. Now to pre-cluster the sequences to remove sequencing error - this is thought to remove sequencing error (up to 1 bp variation per 100 bp). Since our amplicons are around 450bp long, we'll pre-cluster based on up to 4 differences.
-  *__Is this pre-clustering and unique.seqs command (step 12) really necessary? If our OTU-making is fast enough further down the track, does this contribute in any way rather than reducing the number of sequences and thus speeding things up? Could these steps be removed without any change to the overall outcome?__
+  * __Is this pre-clustering and unique.seqs command (step 12) really necessary? If our OTU-making is fast enough further down the track, does this contribute in any way rather than reducing the number of sequences and thus speeding things up? Could these steps be removed without any change to the overall outcome?__
 
     ```
     pre.cluster(fasta=basename.trim.contigs.good.unique.good.filter.unique.fasta, count=basename.trim.contigs.good.unique.good.filter.count_table, diffs=4)
     ```
 
 14. Now to detect and remove chimeric sequences using uchime.
-  *__Is uchime the best tool for this? Should we consider using vsearch or another tool?__*
+  * __Is uchime the best tool for this? Should we consider using vsearch or another tool?__*
 
     ```
     chimera.uchime(fasta=basename.trim.contigs.good.unique.good.filter.unique.precluster.fasta, count=basename.trim.contigs.good.unique.good.filter.unique.precluster.count_table, dereplicate=t)
@@ -103,14 +104,14 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
     ```
 
 15. Now the sequences are ready for classification.
-  *__The standard mothur protocol carries out classification before OTU clustering, then classifies the OTUs based on the classified pre-clustered sequences. Why? If it's the OTUs we're interested in, why not classify the OTUs after they're OTUs?__
-  *__This is the default mothur classification algorithm (wang). Is this what we want to use?__
+  * __The standard mothur protocol carries out classification before OTU clustering, then classifies the OTUs based on the classified pre-clustered sequences. Why? If it's the OTUs we're interested in, why not classify the OTUs after they're OTUs?__
+  * __This is the default mothur classification algorithm (wang). Is this what we want to use?__
     
     ```
     classify.seqs(fasta=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=basename.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, reference=/path/to/database/silva.nr_v123.pcr.align, taxonomy=/path/to/database/silva.nr_v123.pcr.align)
     ```
 16. Now to cluster the sequences into OTUs using the vsearch agc (abundance-based greedy clustering) algorithm.
-  *__Is this the clustering algorithm we should be using? We need to consider both speed (performance) and accuracy. What about usearch?__*
+  * __Is this the clustering algorithm we should be using? We need to consider both speed (performance) and accuracy. What about usearch?__*
 
     ```
     cluster(fasta=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=basename.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, method=agc)
@@ -142,7 +143,7 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
     ```
 
 20. Plot alpha diversity estimates for all your samples:
-  *__Would rarefaction make these values more or less accurate?__
+  * __Would rarefaction make these values more or less accurate?__
     
     ```R
     plot_richness(basename.phyloseq)
@@ -155,7 +156,7 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
     ```
 
 22. Plot a basic NMDS (PCA) of your samples.
-  *__This is without any transformation or normalisation of the data. Should we be normalizing the data, for example using DESeq2, before making this kind of plot?__
+  * __This is without any transformation or normalisation of the data. Should we be normalizing the data, for example using DESeq2, before making this kind of plot?__
 
     ```R
     basename.phyloseq.ord <- ordinate(basename.phyloseq, "NMDS", "bray")
