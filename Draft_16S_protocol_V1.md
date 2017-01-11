@@ -8,18 +8,43 @@
     Sample2 Sample2_S19_L001_R1_001.fastq.gz    Sample2_S19_L001_R2_001.fastq.gz
     Sample3 Sample3_S21_L001_R1_001.fastq.gz    Sample3_S21_L001_R2_001.fastq.gz
     ```
-    
+
 3. Open mothur and merge your forward and reverse reads and set the input/output directory (your "project directory") with the following command. The number of processors you choose will depend on your computer - if you don't know how many processors your computer has, then just set it to 1. Note that you will need to specify the drive and use backslashes for your directory paths on Windows (i.e. C:\path\to\project_dir), the forward slashes shown below are for Mac or Linux.
+
+    ```
     make.contigs(file=basename.files, input=/path/to/project_directory, output=/path/to/input/project_directory, processors=8)
+    ```
+
 4. Remove reads that are too short or suspiciously long:
+
+    ```
     screen.seqs(fasta=basename.trim.contigs.fasta, group=basename.contigs.groups, maxambig=0, minlength=400, maxlength=500)
+    ```
+
 5. Find the unique sequences only to save time:
+
+    ```
     unique.seqs(fasta=basename.trim.contigs.good.fasta)
+    ```
+
 6. So that mothur can keep track of the unique sequences across different samples, we need to run this command:
+
+    ```
     count.seqs(name=basename.trim.contigs.good.names,group=basename.contigs.good.groups)
+    ```
+
 7. Align the sequences to a version of the silva database trimmed according to the primers you used for your sequencing.
+
+    ```
     align.seqs(fasta=basename.trim.contigs.good.unique.fasta, reference=/path/to/database/silva.nr_v123.pcr.align)
+    ```
+
 8. Now run summary sequences on the aligned sequences to see how well they aligned.
+
+    ```
     summary.seqs(fasta=greenland.trim.contigs.good.unique.align, count=greenland.trim.contigs.good.count_table)
+    ```
+
+9.
 
 
