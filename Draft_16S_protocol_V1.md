@@ -76,7 +76,7 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
     ```
 
 11. Now filter the sequences to remove overhangs outside of the aligned region:
-  *__Is this the only and best way to remove primers, bits of adapter etc.?__
+  * __Is this the only and best way to remove primers, bits of adapter etc.?__
 
     ```
     filter.seqs(fasta=basename.trim.contigs.good.unique.good.align, vertical=T, trump=.)
