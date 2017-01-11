@@ -1,6 +1,7 @@
 # 16S rRNA gene amplicon community analysis protocol
 
-1. Collect all gzipped FASTQ files into a single directory (your "project directory") - one pair of files (forward/reverse reads) for each sample. *Do we need to worry about the standard Illumina method for dividing a sequencing run based on multiplex barcoding, or are we happy with what comes off the machine?*
+1. Collect all gzipped FASTQ files into a single directory (your "project directory") - one pair of files (forward/reverse reads) for each sample.
+  * __Do we need to worry about the standard Illumina method for dividing a sequencing run based on multiplex barcoding, or are we happy with what comes off the machine? Do we need to deal with sequences "leaking" in between libraries (samples)?__
 2. Create a text file in the same folder as your `.fastq.gz` files to indicate to mothur which file matches which sample. The file should be called `basename.files` where `basename` is a short descriptive name for the dataset you're working with. The file should have one line per sample, with the following format (3-sample example):
 
     ```
@@ -10,6 +11,7 @@
     ```
 
 3. Open mothur and merge your forward and reverse reads and set the input/output directory (your "project directory") with the following command. The number of processors you choose will depend on your computer - if you don't know how many processors your computer has, then just set it to 1. Note that you will need to specify the drive and use backslashes for your directory paths on Windows (i.e. C:\path\to\project_dir), the forward slashes shown below are for Mac or Linux.
+  * __What about sequences with poor quality ends - are they going to merge OK? Does removing sequences with ambiguities take care of this problem, or are there going to be some sequencing errors leftover? Or is 0 ambiguities too strict - are we throwing away too much data?__
 
     ```
     make.contigs(file=basename.files, input=/path/to/project_directory, output=/path/to/input/project_directory, processors=8)
