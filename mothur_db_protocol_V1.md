@@ -96,9 +96,9 @@ This protocol is modified based on the [Mothur README for the SILVA v123 referen
     tax <- read.table(file="silva.full_v123.tax.temp", sep="\t")
 	tax$V2 <- gsub(" ", "_", tax$V2)  #convert any spaces to underscores
 	tax$V2 <- gsub("uncultured;", "", tax$V2)   #remove any "uncultured" taxa names
-	#tax$V2 <- paste0("Root;", tax$V2)   #pre-empt all classifications with the Root level.
+	tax$V2 <- paste0("Root;", tax$V2)   #pre-empt all classifications with the Root level.
 
-	#we want to see whether everything has 7 (6) taxonomic levesl (Root to genus)
+	#we want to see whether everything has 7 (6) taxonomic levels (Root to genus)
 	getDepth <- function(taxonString){
 	  initial <- nchar(taxonString)
 	    removed <- nchar(gsub(";", "", taxonString))
