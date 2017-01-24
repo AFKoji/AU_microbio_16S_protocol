@@ -1,6 +1,6 @@
-#Mothur 16S Silva database preparation protocol
+#Mothur 16S rRNA gene Silva database preparation protocol
 
-This protocol is modified based on the [Mothur README for the SILVA v123 reference files](http://blog.mothur.org/2015/12/03/SILVA-v123-reference-files/) with some modifications.
+This protocol is modified based on the [Mothur README for the SILVA v123 reference files](http://blog.mothur.org/2015/12/03/SILVA-v123-reference-files/) with some modifications. Although this protocol uses 16S rRNA silva databases as an example, any Arb database can be turned into a mothur database using this protocol.
 
 1. Download the appropriate database from the [Silva website](https://www.arb-silva.de/download/arb-files/) and open it in [Arb](http://www.arb-home.de/). For example, to download version 128 of the database, use the following command:
 
