@@ -1,0 +1,4 @@
+SUFFIX          fasta    
+BEGIN    
+>*(acc).*(name)\t*(align_ident_slv)\t*(tax_slv);    
+*(|export_sequence)    

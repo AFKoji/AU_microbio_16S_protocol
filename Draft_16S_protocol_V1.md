@@ -111,7 +111,7 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
     classify.seqs(fasta=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=basename.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, reference=/path/to/database/silva.nr_v123.pcr.align, taxonomy=/path/to/database/silva.nr_v123.pcr.align)
     ```
 16. Now to cluster the sequences into OTUs using the vsearch agc (abundance-based greedy clustering) algorithm.
-  * __Is this the clustering algorithm we should be using? We need to consider both speed (performance) and accuracy. What about usearch?__*
+  * __Is this the clustering algorithm we should be using? We need to consider both speed (performance) and accuracy. What about usearch?__
 
     ```
     cluster(fasta=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=basename.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, method=agc)
