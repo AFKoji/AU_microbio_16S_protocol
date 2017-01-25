@@ -87,7 +87,7 @@ This protocol is modified based on the [Mothur README for the SILVA v123 referen
 
     ```
     system(mv silva.full_v128.good.pcr.pick.fasta silva.nr_v128.align)
-    system(grep "^>" silva.full_v128.fasta | cut -f 1,3 | cut -c 2- > silva.full_v128.tax.temp)
+    system(grep "^>" silva.nr_v128.align | cut -f 1,3 | cut -c 2- > silva.full_v128.tax.temp)
     ```
 
 11. Now the taxonomy file needs a little bit more work to get it ready for mothur - open R (by typing `R`) and use the following commands to tweak that file's formatting and to check and fix the number of taxonomic levels in each domain (eukaryotes get restricted to 6 levels making "pseudogenera")
