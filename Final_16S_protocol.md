@@ -133,20 +133,39 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
     basename.phyloseq = import_mothur(mothur_shared_file=moth_shared, mothur_constaxonomy_file=moth_tax)
     ```
 
-20. Plot alpha diversity estimates for all your samples:
+20. If you sequenced a negative control sample, now would be a good time to check what's in there. You can get an overview of this with the following R command, "Negative_control" is the name you gave your negative control in the `basename.files` file you started out with in mothur. You should examine the negative control critically - are there any obvious contaminants? Remember that some of these OTUs may be spill over from your samples as a result of tag-switching. (Salter et. al. 2014)[http://www.biomedcentral.com/1741-7007/12/87] contains a good overview of some common contaminant genera found in reagents. 
+
+    ```R
+    tax_table(basename.phyloseq)[row.names(otu_table(basename.phyloseq)[otu_table(basename.phyloseq)[,"Negative_control"] > 0,]),]
+    ```
+
+21. Once you have some good candidate contaminant OTUs, you should check to see how abundant they are in your other samples. If they're a lot more abundant in your real samples, then they're probably in the negative control as a consequence of tag-switching. If they're a lot more abundant in your negative control, then it's probably a true contaminant. You can check the abundance of each candidate contaminating Otu with the following R code, assuming your candidate contaminants are Otu0075, Otu4471, and Otu0242:
+
+    ```R
+    candidate_contaminants <- c("Otu0075","Otu4471","Otu2042")
+    otu_table(basename.phyloseq)[candidate_contaminants,]
+    ```
+
+22. Once contaminating OTUs have been identified, you can remove them using the `prune_taxa` command within the R phyloseq package. You can also remove taxa using the `subset_taxa` command (not shown here).
+
+    ```R
+    basename.phyloseq.decon <- prune_taxa(row.names(otu_table(basename.phyloseq)) %in% candidate_contaminants == FALSE,basename.phyloseq)
+    ```
+
+23. Plot alpha diversity estimates for all your samples:
   * __Would rarefaction make these values more or less accurate?__
     
     ```R
     plot_richness(basename.phyloseq)
     ```
 
-21. Plot OTU abundance coloured by phylum-level classification:
+24. Plot OTU abundance coloured by phylum-level classification:
     
     ```R
     plot_bar(basename.phyloseq, fill="Rank2")
     ```
 
-22. Plot a basic NMDS (PCA) of your samples.
+25. Plot a basic NMDS (PCA) of your samples.
   * __This is without any transformation or normalisation of the data. Should we be normalizing the data, for example using DESeq2, before making this kind of plot?__
 
     ```R
@@ -154,4 +173,4 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
     plot_ordination(basename.phyloseq, basename.phyloseq.ord, type="sample")
     ```
 
-23. Phyloseq (and R, for that matter) contains many other powerful analysis and plotting tools for your data. See the [Phyloseq Homepage](https://joey711.github.io/phyloseq/index.html) for many good examples.
+26. Phyloseq (and R, for that matter) contains many other powerful analysis and plotting tools for your data. See the [Phyloseq Homepage](https://joey711.github.io/phyloseq/index.html) for many good examples.
