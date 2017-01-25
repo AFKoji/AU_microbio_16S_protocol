@@ -19,7 +19,7 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
     make.contigs(file=basename.files, input=/path/to/project_directory, output=/path/to/input/project_directory, processors=8)
     ```
 
-4. Remove reads that are too short or suspiciously long:
+4. Remove reads that are too short or suspiciously long. Here we're setting the allowable length range to 400-500 base pairs, but this will depend on the length of the amplicon that you're sequencing:
 
     ```
     screen.seqs(fasta=basename.trim.contigs.fasta, group=basename.contigs.groups, maxambig=0, minlength=400, maxlength=500)
@@ -37,7 +37,7 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
     count.seqs(name=basename.trim.contigs.good.names,group=basename.contigs.good.groups)
     ```
 
-7. Align the sequences to a version of the silva database trimmed according to the primers you used for your sequencing. You can use the [accompanying database preparation protocol](https://github.com/ianpgm/AU_microbio_16S_protocol/blob/master/mothur_db_protocol_V1.md) to make your database.
+7. Align the sequences to a version of the silva database trimmed according to the primers you used for your sequencing. You can use the [accompanying database preparation protocol](https://github.com/ianpgm/AU_microbio_16S_protocol/blob/master/mothur_db_protocol_V1.md) to make your database. Replace `reference=/path/to/database/silva.nr_v123.pcr.align` in the following command with the path to your own database.
 
     ```
     align.seqs(fasta=basename.trim.contigs.good.unique.fasta, reference=/path/to/database/silva.nr_v123.pcr.align)
@@ -80,7 +80,7 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
 12. There is some redundancy across the sequences now following trimming, so we're going to run `unique.seqs` again.
 
     ```
-    unique.seqs(fasta=basename.trim.contigs.good.unique.good.filter.fasta, count=basename.trim.contigs.good.good.count_table)
+    unique.seqs(fasta=basename.trim.contigs.good.unique.good.filter.fasta, count=basename.trim.contigs.good.count_table)
     ```
 
 13. Now to pre-cluster the sequences to remove sequencing error - this is thought to remove sequencing error (up to 1 bp variation per 100 bp). Since our amplicons are around 450bp long, we'll pre-cluster based on up to 4 differences.
@@ -105,7 +105,7 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
 16. Now to cluster the sequences into OTUs using the vsearch agc (abundance-based greedy clustering) algorithm.
 
     ```
-    cluster(fasta=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=basename.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, method=agc)
+    cluster(fasta=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=basename.trim.contigs.good.unique.good.filter.unique.precluster.count_table, method=agc)
     ```
 
 17. Determine the number of times each OTU occurs in each sample using this command.
