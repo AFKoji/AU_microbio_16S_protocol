@@ -159,7 +159,6 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
     ```
 
 24. Plot alpha diversity estimates for all your samples:
-  * __Would rarefaction make these values more or less accurate?__
     
     ```R
     plot_richness(basename.phyloseq)
