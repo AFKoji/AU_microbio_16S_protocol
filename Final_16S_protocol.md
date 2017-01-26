@@ -2,7 +2,7 @@
 
 This protocol is modified based on the [Mothur MiSeq Standard Operating Procedure](https://www.mothur.org/wiki/MiSeq_SOP).
 
-Please note that this is a __DRAFT__ protocol and not yet ready for production use. Discussion questions are listed as __bold__ bullet points.
+This protocol was prepared using [mothur](https://www.mothur.org/) version 1.38.1, [R](https://cran.r-project.org/) version 3.3.0, and [phyloseq](http://joey711.github.io/phyloseq/index.html) version 1.16.2.
 
 1. Collect all gzipped FASTQ files into a single directory (your "project directory") - one pair of files (forward/reverse reads) for each sample.
 2. Create a text file in the same folder as your `.fastq.gz` files to indicate to mothur which file matches which sample. The file should be called `basename.files` where `basename` is a short descriptive name for the dataset you're working with. The file should have one line per sample, with the following format (3-sample example):
