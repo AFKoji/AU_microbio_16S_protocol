@@ -133,7 +133,7 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
     basename.phyloseq = import_mothur(mothur_shared_file=moth_shared, mothur_constaxonomy_file=moth_tax)
     ```
 
-20. If you sequenced a negative control sample, now would be a good time to check what's in there. You can get an overview of this with the following R command, "Negative_control" is the name you gave your negative control in the `basename.files` file you started out with in mothur. You should examine the negative control critically - are there any obvious contaminants? Remember that some of these OTUs may be spill over from your samples as a result of tag-switching. (Salter et. al. 2014)[http://www.biomedcentral.com/1741-7007/12/87] contains a good overview of some common contaminant genera found in reagents. 
+20. If you sequenced a negative control sample, now would be a good time to check what's in there. You can get an overview of this with the following R command, "Negative_control" is the name you gave your negative control in the `basename.files` file you started out with in mothur. You should examine the negative control critically - are there any obvious contaminants? Remember that some of these OTUs may be spill over from your samples as a result of tag-switching. ([Salter et. al. 2014](http://www.biomedcentral.com/1741-7007/12/87)) contains a good overview of some common contaminant genera found in reagents. 
 
     ```R
     tax_table(basename.phyloseq)[row.names(otu_table(basename.phyloseq)[otu_table(basename.phyloseq)[,"Negative_control"] > 0,]),]
@@ -146,31 +146,36 @@ Please note that this is a __DRAFT__ protocol and not yet ready for production u
     otu_table(basename.phyloseq)[candidate_contaminants,]
     ```
 
-22. Once contaminating OTUs have been identified, you can remove them using the `prune_taxa` command within the R phyloseq package. You can also remove taxa using the `subset_taxa` command (not shown here).
+22. Once contaminating OTUs have been identified, you can remove them using the `prune_taxa` command within the R phyloseq package.
 
     ```R
     basename.phyloseq.decon <- prune_taxa(row.names(otu_table(basename.phyloseq)) %in% candidate_contaminants == FALSE,basename.phyloseq)
     ```
 
-23. Plot alpha diversity estimates for all your samples:
+23. If there are many contaminating OTUs within a single taxonomic lineage, it might make more sense to remove those OTUs based on their taxonomic classification rather than their OTU identifiers. This can be achieved in mothur using the `remove.lineage` command. An example to remove all _Pseudomonas_ and _Propionibacter_ is as follows, for more details see the [remove.lineage command wiki page](https://www.mothur.org/wiki/Remove.lineage)
+
+    ```
+    remove.lineage(constaxonomy=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.agc.unique_list.0.03.cons.taxonomy, shared=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.agc.unique_list.shared, taxon='Pseudomonas-Propionibacter', label=0.03))
+    ```
+
+24. Plot alpha diversity estimates for all your samples:
   * __Would rarefaction make these values more or less accurate?__
     
     ```R
     plot_richness(basename.phyloseq)
     ```
 
-24. Plot OTU abundance coloured by phylum-level classification:
+25. Plot OTU abundance coloured by phylum-level classification:
     
     ```R
     plot_bar(basename.phyloseq, fill="Rank2")
     ```
 
-25. Plot a basic NMDS (PCA) of your samples.
-  * __This is without any transformation or normalisation of the data. Should we be normalizing the data, for example using DESeq2, before making this kind of plot?__
+26. Plot a basic NMDS (PCA) of your samples.
 
     ```R
     basename.phyloseq.ord <- ordinate(basename.phyloseq, "NMDS", "bray")
     plot_ordination(basename.phyloseq, basename.phyloseq.ord, type="sample")
     ```
 
-26. Phyloseq (and R, for that matter) contains many other powerful analysis and plotting tools for your data. See the [Phyloseq Homepage](https://joey711.github.io/phyloseq/index.html) for many good examples.
+27. Phyloseq (and R, for that matter) contains many other powerful analysis and plotting tools for your data. See the [Phyloseq Homepage](https://joey711.github.io/phyloseq/index.html) for many good examples.
