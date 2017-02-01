@@ -13,10 +13,12 @@ This protocol was prepared using [mothur](https://www.mothur.org/) version 1.38.
     Sample3 Sample3_S21_L001_R1_001.fastq.gz    Sample3_S21_L001_R2_001.fastq.gz
     ```
 
+Optional: use the script fileListForMothur.sh to make this file
+
 3. Open mothur and merge your forward and reverse reads and set the input/output directory (your "project directory") with the following command. The number of processors you choose will depend on your computer - if you don't know how many processors your computer has, then just set it to 1. Note that you will need to specify the drive and use backslashes for your directory paths on Windows (i.e. C:\path\to\project_dir), the forward slashes shown below are for Mac or Linux.
 
     ```
-    make.contigs(file=basename.files, input=/path/to/project_directory, output=/path/to/input/project_directory, processors=8)
+    make.contigs(file=basename.files, inputdir=/path/to/project_directory, outputdir=/path/to/input/project_directory, processors=8)
     ```
 
 4. Remove reads that are too short or suspiciously long. Here we're setting the allowable length range to 400-500 base pairs, but this will depend on the length of the amplicon that you're sequencing:
