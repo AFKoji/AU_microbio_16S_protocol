@@ -78,7 +78,7 @@ This protocol is modified based on the [Mothur README for the SILVA v123 referen
 
     ```
     degap.seqs()
-    unique.seq()
+    unique.seqs()
     system(grep ">" silva.full_v128.good.pcr.ng.unique.fasta | cut -f 1 | cut -c 2- > silva.full_v128.good.pcr.ng.unique.accnos)
     get.seqs(fasta=silva.full_v128.good.pcr.fasta, accnos=silva.full_v128.good.pcr.ng.unique.accnos)
     ```
