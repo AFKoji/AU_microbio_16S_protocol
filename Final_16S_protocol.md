@@ -82,7 +82,7 @@ This protocol was prepared using [mothur](https://www.mothur.org/) version 1.38.
 12. There is some redundancy across the sequences now following trimming, so we're going to run `unique.seqs` again.
 
     ```
-    unique.seqs(fasta=basename.trim.contigs.good.unique.good.filter.fasta, count=basename.trim.contigs.good.count_table)
+    unique.seqs(fasta=basename.trim.contigs.good.unique.good.filter.fasta, count=basename.trim.contigs.good.good.count_table)
     ```
 
 13. Now to pre-cluster the sequences to remove sequencing error - this is thought to remove sequencing error (up to 1 bp variation per 100 bp). Since our amplicons are around 450bp long, we'll pre-cluster based on up to 4 differences.
