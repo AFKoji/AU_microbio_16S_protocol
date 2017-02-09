@@ -107,7 +107,7 @@ This protocol was prepared using [mothur](https://www.mothur.org/) version 1.38.
 16. Now to cluster the sequences into OTUs using the vsearch agc (abundance-based greedy clustering) algorithm.
 
     ```
-    cluster(fasta=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=basename.trim.contigs.good.unique.good.filter.unique.precluster.count_table, method=agc)
+    cluster(fasta=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=basename.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, method=agc)
     ```
 
 17. Determine the number of times each OTU occurs in each sample using this command.
