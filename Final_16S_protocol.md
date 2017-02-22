@@ -124,7 +124,7 @@ This protocol was prepared using [mothur](https://www.mothur.org/) version 1.38.
 19. Get a file containing the consensus sequence for each OTU:
  
     ```
-    get.oturep(list=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.agc.unique_list.list, count=AUBO16.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, fasta=AUBO16.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, method=abundance)
+    get.oturep(list=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.agc.unique_list.list, count=basename.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, fasta=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, method=abundance)
     ```
 20. From this point you will switch from using mothur to using R. You can quit mothur using the `quit()` command, or leave it open if you think you might use it again. Open R and import your data using the phyloseq package with the following commands:
 
