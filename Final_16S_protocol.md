@@ -121,8 +121,12 @@ This protocol was prepared using [mothur](https://www.mothur.org/) version 1.38.
     ```
     classify.otu(list=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.agc.unique_list.list, count=basename.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, taxonomy=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.pcr.wang.taxonomy, label=0.03)
     ```
-
-19. From this point you will switch from using mothur to using R. You can quit mothur using the `quit()` command, or leave it open if you think you might use it again. Open R and import your data using the phyloseq package with the following commands:
+19. Get a file containing the consensus sequence for each OTU:
+ 
+    ```
+    get.oturep(list=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.agc.unique_list.list, count=AUBO16.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, fasta=AUBO16.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, method=abundance)
+    ```
+20. From this point you will switch from using mothur to using R. You can quit mothur using the `quit()` command, or leave it open if you think you might use it again. Open R and import your data using the phyloseq package with the following commands:
 
     ```R
     setwd("/path/to/project_directory")
@@ -135,48 +139,48 @@ This protocol was prepared using [mothur](https://www.mothur.org/) version 1.38.
     basename.phyloseq = import_mothur(mothur_shared_file=moth_shared, mothur_constaxonomy_file=moth_tax)
     ```
 
-20. If you sequenced a negative control sample, now would be a good time to check what's in there. You can get an overview of this with the following R command, "Negative_control" is the name you gave your negative control in the `basename.files` file you started out with in mothur. You should examine the negative control critically - are there any obvious contaminants? Remember that some of these OTUs may be spill over from your samples as a result of tag-switching. ([Salter et. al. 2014](http://www.biomedcentral.com/1741-7007/12/87)) contains a good overview of some common contaminant genera found in reagents. 
+21. If you sequenced a negative control sample, now would be a good time to check what's in there. You can get an overview of this with the following R command, "Negative_control" is the name you gave your negative control in the `basename.files` file you started out with in mothur. You should examine the negative control critically - are there any obvious contaminants? Remember that some of these OTUs may be spill over from your samples as a result of tag-switching. ([Salter et. al. 2014](http://www.biomedcentral.com/1741-7007/12/87)) contains a good overview of some common contaminant genera found in reagents. 
 
     ```R
     tax_table(basename.phyloseq)[row.names(otu_table(basename.phyloseq)[otu_table(basename.phyloseq)[,"Negative_control"] > 0,]),]
     ```
 
-21. Once you have some good candidate contaminant OTUs, you should check to see how abundant they are in your other samples. If they're a lot more abundant in your real samples, then they're probably in the negative control as a consequence of tag-switching. If they're a lot more abundant in your negative control, then it's probably a true contaminant. You can check the abundance of each candidate contaminating Otu with the following R code, assuming your candidate contaminants are Otu0075, Otu4471, and Otu0242:
+22. Once you have some good candidate contaminant OTUs, you should check to see how abundant they are in your other samples. If they're a lot more abundant in your real samples, then they're probably in the negative control as a consequence of tag-switching. If they're a lot more abundant in your negative control, then it's probably a true contaminant. You can check the abundance of each candidate contaminating Otu with the following R code, assuming your candidate contaminants are Otu0075, Otu4471, and Otu0242:
 
     ```R
     candidate_contaminants <- c("Otu0075","Otu4471","Otu2042")
     otu_table(basename.phyloseq)[candidate_contaminants,]
     ```
 
-22. Once contaminating OTUs have been identified, you can remove them using the `prune_taxa` command within the R phyloseq package.
+23. Once contaminating OTUs have been identified, you can remove them using the `prune_taxa` command within the R phyloseq package.
 
     ```R
     basename.phyloseq.decon <- prune_taxa(row.names(otu_table(basename.phyloseq)) %in% candidate_contaminants == FALSE,basename.phyloseq)
     ```
 
-23. If there are many contaminating OTUs within a single taxonomic lineage, it might make more sense to remove those OTUs based on their taxonomic classification rather than their OTU identifiers. This can be achieved in mothur using the `remove.lineage` command. An example to remove all _Pseudomonas_ and _Propionibacter_ is as follows, for more details see the [remove.lineage command wiki page](https://www.mothur.org/wiki/Remove.lineage)
+24. If there are many contaminating OTUs within a single taxonomic lineage, it might make more sense to remove those OTUs based on their taxonomic classification rather than their OTU identifiers. This can be achieved in mothur using the `remove.lineage` command. An example to remove all _Pseudomonas_ and _Propionibacter_ is as follows, for more details see the [remove.lineage command wiki page](https://www.mothur.org/wiki/Remove.lineage)
 
     ```
     remove.lineage(constaxonomy=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.agc.unique_list.0.03.cons.taxonomy, shared=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.agc.unique_list.shared, taxon='Pseudomonas-Propionibacter', label=0.03))
     ```
 
-24. Plot alpha diversity estimates for all your samples:
+25. Plot alpha diversity estimates for all your samples:
     
     ```R
     plot_richness(basename.phyloseq)
     ```
 
-25. Plot OTU abundance coloured by phylum-level classification:
+26. Plot OTU abundance coloured by phylum-level classification:
     
     ```R
     plot_bar(basename.phyloseq, fill="Rank2")
     ```
 
-26. Plot a basic NMDS (PCA) of your samples.
+27. Plot a basic NMDS (PCA) of your samples.
 
     ```R
     basename.phyloseq.ord <- ordinate(basename.phyloseq, "NMDS", "bray")
     plot_ordination(basename.phyloseq, basename.phyloseq.ord, type="sample")
     ```
 
-27. Phyloseq (and R, for that matter) contains many other powerful analysis and plotting tools for your data. See the [Phyloseq Homepage](https://joey711.github.io/phyloseq/index.html) for many good examples.
+28. Phyloseq (and R, for that matter) contains many other powerful analysis and plotting tools for your data. See the [Phyloseq Homepage](https://joey711.github.io/phyloseq/index.html) for many good examples.
