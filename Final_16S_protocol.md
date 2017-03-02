@@ -88,7 +88,7 @@ This protocol was prepared using [mothur](https://www.mothur.org/) version 1.38.
 13. Now to pre-cluster the sequences to remove sequencing error - this is thought to remove sequencing error (up to 1 bp variation per 100 bp). Since our amplicons are around 450bp long, we'll pre-cluster based on up to 4 differences.
 
     ```
-    pre.cluster(fasta=basename.trim.contigs.good.unique.good.filter.unique.fasta, count=basename.trim.contigs.good.unique.good.filter.count_table, group=basename.contigs.good.groups, diffs=4)
+    pre.cluster(fasta=basename.trim.contigs.good.unique.good.filter.unique.fasta, count=basename.trim.contigs.good.unique.good.filter.count_table, diffs=4)
     ```
 
 14. Now to detect and remove chimeric sequences using uchime.
