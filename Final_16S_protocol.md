@@ -102,7 +102,7 @@ This protocol was prepared using [mothur](https://www.mothur.org/) version 1.38.
 15. Now the sequences are ready for classification.
     
     ```
-    classify.seqs(fasta=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=basename.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, reference=/path/to/database/silva.nr_v123.pcr.align, taxonomy=/path/to/database/silva.nr_v123.pcr.align)
+    classify.seqs(fasta=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=basename.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, reference=/path/to/database/silva.nr_v123.pcr.align, taxonomy=/path/to/database/silva.nr_v123.pcr.tax)
     ```
 
 16. Now to cluster the sequences into OTUs using the vsearch agc (abundance-based greedy clustering) algorithm.
