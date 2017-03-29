@@ -166,7 +166,7 @@ This protocol was prepared using [mothur](https://www.mothur.org/) version 1.38.
 25. If there are many contaminating OTUs within a single taxonomic lineage, it might make more sense to remove those OTUs based on their taxonomic classification rather than their OTU identifiers. This can be achieved in mothur using the `remove.lineage` command. An example to remove all _Pseudomonas_ and _Propionibacter_ is as follows, for more details see the [remove.lineage command wiki page](https://www.mothur.org/wiki/Remove.lineage)
 
     ```
-    remove.lineage(constaxonomy=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.agc.unique_list.0.03.cons.taxonomy, shared=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.agc.unique_list.shared, taxon='Pseudomonas-Propionibacter', label=0.03))
+    remove.lineage(constaxonomy=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.agc.unique_list.0.03.cons.taxonomy, shared=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.agc.unique_list.shared, taxon='Pseudomonas-Propionibacter', label=0.03)
     ```
 
 26. Plot alpha diversity estimates for all your samples:
