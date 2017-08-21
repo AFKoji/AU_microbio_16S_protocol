@@ -121,7 +121,7 @@ This protocol was prepared using [mothur](https://www.mothur.org/) version 1.38.
     ```
     remove.rare(shared=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.agc.unique_list.shared, nseqs=1)
     ```
-19. Classify OTUs (based on the classification of the preclustered sequences) like so:
+19. Classify OTUs (based on the classification of the preclustered sequences) like so. Note that the name of your 'taxonomy' file will change depending on the name of the database that you used for classification.
 
     ```
     classify.otu(list=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.agc.unique_list.list, count=basename.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, taxonomy=basename.trim.contigs.good.unique.good.filter.unique.precluster.pick.pcr.wang.taxonomy, label=0.03)
